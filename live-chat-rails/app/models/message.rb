@@ -1,5 +1,5 @@
 class Message < ApplicationRecord
   belongs_to :user
 
-  validatates :content, presence: true
+  validates :content, presence: true
 end
