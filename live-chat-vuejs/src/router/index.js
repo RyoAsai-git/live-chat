@@ -1,7 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Welcome from '../views/Welcome'
 
 // 実際のルーティングを定義する箇所
-const routes = []
+const routes = [
+  {
+    path: '/',
+    name: 'Welcome',
+    component: Welcome
+  }
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
