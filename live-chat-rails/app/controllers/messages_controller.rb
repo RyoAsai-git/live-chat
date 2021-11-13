@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
     messages = Message.all
     messages_array = messages.map do |message|
       {
-        id: message.id
+        id: message.id,
         user_id: message.user.id,
         name: message.user.name,
         content: message.content,
@@ -11,7 +11,6 @@ class MessagesController < ApplicationController
         created_at: message.created_at
       }
     end
+    render json: messages_array, status: 200
   end
-
-  render json: messages_array, status: 200
 end
