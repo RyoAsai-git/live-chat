@@ -1,37 +1,48 @@
 <template>
   <div>
     <h1>{{ title }}</h1>
-    <p v-if="isEnabled">{{ subtitle }}</p>
-    <button @click="toggle">トグルする</button>
-    <button @dblclick="toggle">トグルダブル</button>
-
-    <p>{{ text }}</p>
+    <TestComponent @toggle="toggle" message="コンポーネントにデータが渡されています。" />
+    <p v-if="isEnabled">こんにちは</p>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        title : '初めてのvue.js',
-        subtitle: 'ようこそ',
-        isEnabled: true
-      }
-    },
-    computed: {
-      text() {
-        if (this.isEnabled) {
-          return 'こんにちは'
-        } else {
-          return 'さよなら'
-        }
-      }
-    },
+import TestComponent from '../components/TestComponent.vue'
 
-    methods: {
-      toggle (){
-        this.isEnabled = !this.isEnabled
+export default {
+  components: {
+    TestComponent,
+  },
+
+  data() {
+    return {
+      title: "初めてのvue.js",
+      subtitle: "ようこそ",
+      isEnabled: true,
+    };
+  },
+
+  computed: {
+    text() {
+      if (this.isEnabled) {
+        return "こんにちは";
+      } else {
+        return "さよなら";
       }
-    }
-  }
+    },
+  },
+
+  methods: {
+    toggle() {
+      this.isEnabled = !this.isEnabled;
+    },
+  },
+};
 </script>
+
+<style scoped>
+  p {
+    font-size: 20px;
+    color: red;
+  }
+</style>
