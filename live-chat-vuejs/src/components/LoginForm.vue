@@ -12,6 +12,8 @@
 
 <script>
 import axios from 'axios'
+import setItem from '../auth/setItem'
+
 export default {
   emits: ['redirectToChatRoom'],
   data () {
@@ -35,6 +37,8 @@ export default {
         }
 
         if (!this.error) {
+          setItem(res.headers, res.data.data.name)
+          console.log({ res })
           this.$emit('redirectToChatRoom')
         }
 
