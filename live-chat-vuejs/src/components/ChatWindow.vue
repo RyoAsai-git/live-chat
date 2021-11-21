@@ -15,7 +15,6 @@
         </li>
       </ul>
     </div>
-    {{ messages }}
   </div>
 </template>
 
@@ -24,6 +23,11 @@
 // 今回は親コンポーネントのChatroom.vueからmessagesを受け取る必要があるので、props: ['messages']と記述
 export default {
   props: ["messages"],
+  data() {
+    return {
+      uid: localStorage.getItem('uid')
+    }
+  }
 };
 </script>
 

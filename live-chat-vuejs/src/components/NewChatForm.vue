@@ -3,17 +3,28 @@
     <textarea
       placeholder="メッセージを入力してEnterを押してください"
       v-model="message"
+      @keypress.enter.prevent="handleSubmit"
     ></textarea>
+    <!-- .preventは、Enterキーを押すと画面がリロードしてしまうため、それを防ぐために追加しています。 -->
   </form>
 </template>
 
 <script>
 export default {
+  // 親コンポーネントのメソッドを実行することができる$emitメソッドは、第２引数でデータを渡すことができます。今回は入力されたメッセージを親コンポーネントのChatroom.vueに送りたいので、this.messageを渡しています。
+  emits: ['connectCable'],
   data () {
     return {
       message: ''
     }
-  }  
+  },
+
+  methods: {
+    handleSubmit() {
+      this.$emit('connectCable', this.message)
+      this.message = ''
+    }
+  }
 }
 </script>
 
