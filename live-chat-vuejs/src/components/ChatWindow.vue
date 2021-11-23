@@ -1,6 +1,7 @@
 <template>
   <div class="chat-window">
-    <div v-if="messages" class="messages">
+    <!-- ref属性と呼ばれます。ref属性を記述することで、このdiv要素をJavaScriptで操作することができるようになります -->
+    <div v-if="messages" class="messages" ref="messages">
       <ul v-for="message in messages" :key="message.id">
         <!-- データプロパティ内で定義したuidが、messageのemailと異なる場合、自分のメッセージではない（メッセージの受け取り側）と判断し、receivedというクラスを適用します。 -->
         <li
@@ -92,6 +93,10 @@ export default {
         console.log(error)
       }
     },
+    scrollToBottom () {
+      const element = this.$refs.messages
+      element.scrollTop = element.scrollHeight
+    }
   },
 };
 </script>

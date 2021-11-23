@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Navbar />
-    <ChatWindow @connectCable="connectCable" :messages="formattedMessages" />
+    <ChatWindow @connectCable="connectCable" :messages="formattedMessages" ref="chatWindow" />
     <NewChatForm @connectCable="connectCable" />
   </div>
 </template>
@@ -76,11 +76,16 @@ export default {
     this.messageChannel = cable.subscriptions.create("RoomChannel", {
       // connectedはRoomChannelとのコネクションが確立したときに実行したいメソッドを記述します
       connected: () => {
-        this.getMessages();
+        // .then()は、非同期処理の記述方法です。「getMessagesメソッドの処理が終わったらthenの中の処理を実行してね」という意味
+        this.getMessages().then(() => {
+          this.$refs.chatWindow.scrollToBottom()
+        });
       },
       // receivedは、Ruby on RailsのAction Cableから何らかのデータが送られてきた時に実行するメソッドを記述します
       received: () => {
-        this.getMessages();
+        this.getMessages().then(() => {
+          this.$refs.chatWindow.scrollToBottom()
+        });
       },
     });
   },
